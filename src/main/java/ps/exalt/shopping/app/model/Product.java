@@ -31,4 +31,5 @@ public class Product {
     private Long lastUpdateTime;
     private Category category;
     private String version;
+
 }
