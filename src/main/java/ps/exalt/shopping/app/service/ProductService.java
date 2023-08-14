@@ -25,10 +25,11 @@ public class ProductService {
 
     public Product createProduct(String id, String name, String description, BigDecimal price, Long creationTime, Long lastUpdateTime, Category category, String version) {
 
-        Product newProduct = new Product(id, name, description, price, creationTime,lastUpdateTime,category,version);
+        Product newProduct = new Product(id, name, description, price, creationTime, lastUpdateTime, category, version);
 
         return newProduct;
     }
+
     public void readAllProducts() {
 
         products.stream().forEach(product -> {
