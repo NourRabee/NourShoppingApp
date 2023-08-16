@@ -11,6 +11,7 @@ import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
 import ps.exalt.shopping.app.service.ProductService;
 
+
 import java.util.List;
 
 @RestController
@@ -27,11 +28,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductRequest createNewProduct(@RequestBody ProductRequest productRequest) {
+    public ProductResponse createNewProduct(@RequestBody ProductRequest productRequest) {
 
-        return productService.createProduct(productRequest.getName(),
-                productRequest.getDescription(), productRequest.getPrice(),
-                productRequest.getCategory());
+        return productService.createProduct(productRequest);
     }
 
 }
