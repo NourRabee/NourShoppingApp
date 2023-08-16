@@ -19,7 +19,11 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    public final ProductService productService = new ProductService();
+    public final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
 
     @GetMapping
