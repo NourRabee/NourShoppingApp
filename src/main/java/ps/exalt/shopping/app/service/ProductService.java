@@ -78,15 +78,17 @@ public class ProductService {
 
     public List<ProductResponse> getProducts() {
 
-        for (Product product : products) {
-            ProductResponse response = new ProductResponse();
-            response.setName(product.getName());
-            response.setDescription(product.getDescription());
-            response.setPrice(product.getPrice());
-            response.setCategory(product.getCategory());
-            response.setVersion(product.getVersion());
-            productResponse.add(response);
-        }
+        productResponse = products.stream()
+                .map(product -> {
+                    ProductResponse response = new ProductResponse();
+                    response.setName(product.getName());
+                    response.setDescription(product.getDescription());
+                    response.setPrice(product.getPrice());
+                    response.setCategory(product.getCategory());
+                    response.setVersion(product.getVersion());
+                    return response;
+                })
+                .collect(Collectors.toList());
 
         return productResponse;
 
