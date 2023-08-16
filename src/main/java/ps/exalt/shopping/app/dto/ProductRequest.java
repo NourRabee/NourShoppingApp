@@ -1,18 +1,17 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: Product.java
+//          filename: ProductRequest.java
 //          2023
 ////////////////////////////////////////////////
+package ps.exalt.shopping.app.dto;
 
-package ps.exalt.shopping.app.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder;
+import ps.exalt.shopping.app.model.Category;
 
 import java.math.BigDecimal;
 
@@ -22,15 +21,11 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 @Builder
-public class Product {
+public class ProductRequest {
 
-    private String id;
     private String name;
     private String description;
     private BigDecimal price;
-    private Long creationTime;
-    private Long lastUpdateTime;
     private Category category;
-    private String version;
 
 }
