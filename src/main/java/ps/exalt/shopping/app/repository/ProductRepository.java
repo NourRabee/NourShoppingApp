@@ -14,5 +14,5 @@ import ps.exalt.shopping.app.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-
+    boolean existsByName(String name);
 }

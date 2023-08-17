@@ -5,7 +5,9 @@
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/V1.0/product")
+@Validated
 public class ProductController {
 
     @Autowired
@@ -32,7 +35,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponse createNewProduct(@RequestBody ProductRequest productRequest) {
+    public ProductResponse createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
 
         return productService.createProduct(productRequest);
     }

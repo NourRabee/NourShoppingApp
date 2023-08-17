@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
+import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.model.Product;
 import ps.exalt.shopping.app.repository.ProductRepository;
 
@@ -41,7 +42,7 @@ public class ProductService {
         request.setId(String.valueOf(UUID.randomUUID()));
         request.setDescription(productRequest.getDescription());
         request.setPrice(productRequest.getPrice());
-        request.setCategory(productRequest.getCategory());
+        request.setCategory(Category.valueOf(productRequest.getCategory()));
         request.setCreationTime(System.currentTimeMillis());
         request.setLastUpdateTime(System.currentTimeMillis());
         request.setVersion("V1.0");
