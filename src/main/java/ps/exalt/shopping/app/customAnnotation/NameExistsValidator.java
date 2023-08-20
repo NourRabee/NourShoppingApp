@@ -10,12 +10,18 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import ps.exalt.shopping.app.repository.ProductRepository;
 
-public class NameExistsValidator implements ConstraintValidator<NameExists,
+public class StringFieldExistsValidator implements ConstraintValidator<StringFieldExists,
         String> {
 
-
+    private String fieldName;
     @Autowired
     private ProductRepository productRepository;
+
+    @Override
+    public void initialize(StringFieldExists constraintAnnotation) {
+        fieldName = constraintAnnotation.fieldName();
+        System.out.println(fieldName);
+    }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

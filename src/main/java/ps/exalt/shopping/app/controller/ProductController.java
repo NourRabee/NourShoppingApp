@@ -13,7 +13,6 @@ import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
 import ps.exalt.shopping.app.service.ProductService;
 
-
 import java.util.List;
 
 @RestController
@@ -28,10 +27,11 @@ public class ProductController {
         this.productService = productService;
     }
 
-
     @GetMapping
-    public List<ProductResponse> getProducts() {
-        return productService.getProducts();
+    public List<ProductResponse> getProduct(@RequestParam(name = "name",
+            required = false) String name, @RequestParam(name = "category",
+            required = false) String category) {
+        return productService.getProductByNameAndCategory(name, category);
     }
 
     @PostMapping
@@ -40,4 +40,16 @@ public class ProductController {
         return productService.createProduct(productRequest);
     }
 
+    @DeleteMapping
+    public void deleteProduct(@RequestParam(name = "name", required = true) String name) {
+        boolean nameExists = productService.nameExists(name);
+        if (nameExists) {
+            productService.deleteProductByName(name);
+        }
+    }
+
+    @PutMapping
+    public void updateProduct(@RequestBody @Valid ProductRequest productRequest) {
+        productService.update(productRequest);
+    }
 }

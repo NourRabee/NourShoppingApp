@@ -5,10 +5,12 @@
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import ps.exalt.shopping.app.customAnnotation.NameExists;
 import ps.exalt.shopping.app.customAnnotation.ValidEnum;
 import ps.exalt.shopping.app.model.Category;
@@ -24,7 +26,6 @@ import java.math.BigDecimal;
 public class ProductRequest {
 
     @NotEmpty(message = "Name must not be empty")
-    @NameExists(message = "Value already exists")
     private String name;
     private String description;
     @DecimalMin(value = "0", inclusive = true, message = "The price must not " +

@@ -10,13 +10,12 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-import static java.lang.annotation.ElementType.*;
 
 /**
  * Target annotation -> specify exactly which kind of java element the
  * ValidCategory annotation is valid to be used on.
  */
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = {EnumValidator.class})

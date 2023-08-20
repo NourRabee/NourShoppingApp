@@ -15,6 +15,7 @@ import ps.exalt.shopping.app.model.Product;
 import ps.exalt.shopping.app.repository.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -65,6 +66,59 @@ public class ProductService {
         response.setCategory(product.getCategory());
         response.setVersion(product.getVersion());
         return response;
+    }
+
+    public List<ProductResponse> getProductByNameAndCategory(String name,
+                                                             String category) {
+
+        Category categoryEnum = null;
+        if (category != null) {
+            categoryEnum = Category.valueOf(category);
+        }
+        List<Product> productList;
+
+        if (name != null && categoryEnum != null) {
+            productList = productRepository.findByNameAndCategory(name,
+                    categoryEnum);
+        } else if (name != null) {
+            productList = productRepository.findByName(name);
+        } else if (categoryEnum != null) {
+            productList = productRepository.findByCategory(categoryEnum);
+        } else {
+            productList = productRepository.findAll();
+        }
+
+        return productList.stream()
+                .map(product -> modelToResponse(product))
+                .collect(Collectors.toList());
+    }
+
+    public boolean nameExists(String name) {
+
+        return productRepository.existsById(name);
+
+    }
+
+    public void deleteProductByName(String name) {
+        productRepository.deleteById(name);
+    }
+
+    public void update(ProductRequest productRequest) {
+
+        Optional<Product> productOptional =
+                productRepository.findById(productRequest.getName());
+
+        if (productOptional.isPresent()) {
+
+            Product product = productOptional.get();
+            product.setDescription(productRequest.getDescription());
+            product.setPrice(productRequest.getPrice());
+            product.setCategory(Category.valueOf(productRequest.getCategory()));
+
+            productRepository.save(product);
+
+        }
+
     }
 }
 
