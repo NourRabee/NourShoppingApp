@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
-import ps.exalt.shopping.app.model.Category;
+import ps.exalt.shopping.app.model.CategoryEnum;
 import ps.exalt.shopping.app.model.Product;
 import ps.exalt.shopping.app.repository.ProductRepository;
 
@@ -43,7 +43,7 @@ public class ProductService {
         request.setId(String.valueOf(UUID.randomUUID()));
         request.setDescription(productRequest.getDescription());
         request.setPrice(productRequest.getPrice());
-        request.setCategory(Category.valueOf(productRequest.getCategory()));
+        request.setCategoryEnum(CategoryEnum.valueOf(productRequest.getCategory()));
         request.setCreationTime(System.currentTimeMillis());
         request.setLastUpdateTime(System.currentTimeMillis());
         request.setVersion("V1.0");
@@ -63,7 +63,7 @@ public class ProductService {
         response.setName(product.getName());
         response.setDescription(product.getDescription());
         response.setPrice(product.getPrice());
-        response.setCategory(product.getCategory());
+        response.setCategoryEnum(product.getCategoryEnum());
         response.setVersion(product.getVersion());
         return response;
     }
@@ -71,19 +71,19 @@ public class ProductService {
     public List<ProductResponse> getProductByNameAndCategory(String name,
                                                              String category) {
 
-        Category categoryEnum = null;
+        CategoryEnum categoryEnum = null;
         if (category != null) {
-            categoryEnum = Category.valueOf(category);
+            categoryEnum = CategoryEnum.valueOf(category);
         }
         List<Product> productList;
 
         if (name != null && categoryEnum != null) {
-            productList = productRepository.findByNameAndCategory(name,
+            productList = productRepository.findByNameAndCategoryEnum(name,
                     categoryEnum);
         } else if (name != null) {
             productList = productRepository.findByName(name);
         } else if (categoryEnum != null) {
-            productList = productRepository.findByCategory(categoryEnum);
+            productList = productRepository.findByCategoryEnum(categoryEnum);
         } else {
             productList = productRepository.findAll();
         }
@@ -113,7 +113,7 @@ public class ProductService {
             Product product = productOptional.get();
             product.setDescription(productRequest.getDescription());
             product.setPrice(productRequest.getPrice());
-            product.setCategory(Category.valueOf(productRequest.getCategory()));
+            product.setCategoryEnum(CategoryEnum.valueOf(productRequest.getCategory()));
 
             productRepository.save(product);
 
