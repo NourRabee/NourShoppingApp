@@ -15,15 +15,12 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {StringFieldExistsValidator.class})
-public @interface StringFieldExists {
+@Constraint(validatedBy = {NameExistsValidator.class})
+public @interface NameExists {
     String message() default "Value already exists";
-
-    String fieldName();
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 
 }

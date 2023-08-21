@@ -8,20 +8,18 @@ package ps.exalt.shopping.app.customAnnotation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import ps.exalt.shopping.app.model.Product;
 import ps.exalt.shopping.app.repository.ProductRepository;
 
-public class StringFieldExistsValidator implements ConstraintValidator<StringFieldExists,
+import java.util.Optional;
+
+
+public class NameExistsValidator implements ConstraintValidator<NameExists,
         String> {
 
-    private String fieldName;
+
     @Autowired
     private ProductRepository productRepository;
-
-    @Override
-    public void initialize(StringFieldExists constraintAnnotation) {
-        fieldName = constraintAnnotation.fieldName();
-        System.out.println(fieldName);
-    }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
@@ -30,7 +28,7 @@ public class StringFieldExistsValidator implements ConstraintValidator<StringFie
         }
 
         // Perform the database check using repository
-        boolean exists = productRepository.existsByName(value);
-        return !exists; // Return true if the value doesn't exist
+        Optional<Product> exists = productRepository.findById(value);
+        return exists.isEmpty(); // Return true if the value doesn't exist
     }
 }
