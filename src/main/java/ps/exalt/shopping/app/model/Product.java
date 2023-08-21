@@ -36,7 +36,7 @@ public class Product {
     private BigDecimal price;
     private Long creationTime;
     private Long lastUpdateTime;
-    private Category category;
+    private CategoryEnum categoryEnum;
     private String version;
 
 }

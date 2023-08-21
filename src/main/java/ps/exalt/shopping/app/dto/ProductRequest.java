@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ps.exalt.shopping.app.customAnnotation.NameExists;
 import ps.exalt.shopping.app.customAnnotation.ValidEnum;
-import ps.exalt.shopping.app.model.Category;
+import ps.exalt.shopping.app.model.CategoryEnum;
 
 import java.math.BigDecimal;
 
@@ -33,7 +32,7 @@ public class ProductRequest {
     @DecimalMax(value = "100000", inclusive = true, message = "The price must" +
             " not be greater than {value}")
     private BigDecimal price;
-    @ValidEnum(enumClass = Category.class, message = "Please provide a valid " +
+    @ValidEnum(enumClass = CategoryEnum.class, message = "Please provide a valid " +
             "category")
     private String category;
 

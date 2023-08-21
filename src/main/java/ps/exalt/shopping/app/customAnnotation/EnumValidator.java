@@ -7,7 +7,7 @@ package ps.exalt.shopping.app.customAnnotation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import ps.exalt.shopping.app.model.Category;
+import ps.exalt.shopping.app.model.CategoryEnum;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,8 +32,8 @@ public class EnumValidator implements ConstraintValidator<ValidEnum,
         if (value == null) {
             return true;
         }
-        for (Category validCategory : Category.values()) {
-            if (validCategory.name().equals(value)) {
+        for (CategoryEnum validCategoryEnum : CategoryEnum.values()) {
+            if (validCategoryEnum.name().equals(value)) {
                 return true;
             }
         }

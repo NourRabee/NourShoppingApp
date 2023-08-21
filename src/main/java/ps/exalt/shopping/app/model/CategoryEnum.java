@@ -6,7 +6,7 @@
 
 package ps.exalt.shopping.app.model;
 
-public enum Category {
+public enum CategoryEnum {
     ELECTRONICS,
     FASHION,
     HOME_AND_KITCHEN,
