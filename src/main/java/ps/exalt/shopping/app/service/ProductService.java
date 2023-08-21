@@ -78,12 +78,12 @@ public class ProductService {
         List<Product> productList;
 
         if (name != null && categoryEnum != null) {
-            productList = productRepository.findByNameAndCategory(name,
+            productList = productRepository.findByNameAndCategoryEnum(name,
                     categoryEnum);
         } else if (name != null) {
             productList = productRepository.findByName(name);
         } else if (categoryEnum != null) {
-            productList = productRepository.findByCategory(categoryEnum);
+            productList = productRepository.findByCategoryEnum(categoryEnum);
         } else {
             productList = productRepository.findAll();
         }
