@@ -8,6 +8,7 @@ package ps.exalt.shopping.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.model.CategoryEnum;
 import ps.exalt.shopping.app.model.Product;
 
@@ -19,8 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     List<Product> findByName(String name);
 
-    List<Product> findByCategoryEnum(CategoryEnum categoryEnum);
+    List<Product> findByNameAndCategory(String name, Category category);
 
-    List<Product> findByNameAndCategoryEnum(String name, CategoryEnum categoryEnum);
-
+    List<Product> findByCategory(Category category);
 }

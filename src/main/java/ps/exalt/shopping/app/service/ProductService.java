@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
-import ps.exalt.shopping.app.model.CategoryEnum;
+import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.model.Product;
 import ps.exalt.shopping.app.repository.ProductRepository;
 
@@ -22,13 +22,15 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
 
-
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          CategoryService categoryService) {
 
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
     }
 
     public ProductResponse createProduct(ProductRequest productRequest) {
@@ -43,47 +45,52 @@ public class ProductService {
         request.setId(String.valueOf(UUID.randomUUID()));
         request.setDescription(productRequest.getDescription());
         request.setPrice(productRequest.getPrice());
-        request.setCategoryEnum(CategoryEnum.valueOf(productRequest.getCategory()));
         request.setCreationTime(System.currentTimeMillis());
         request.setLastUpdateTime(System.currentTimeMillis());
+        Category category =
+                categoryService.getCategory(productRequest.getCategory());
+        request.setCategory(category);
         request.setVersion("V1.0");
         return request;
 
     }
 
-    public List<ProductResponse> getProducts() {
-
-        return productRepository.findAll().stream()
-                .map(product -> modelToResponse(product))
-                .collect(Collectors.toList());
-    }
+//    public List<ProductResponse> getProducts() {
+//
+//        return productRepository.findAll().stream()
+//                .map(product -> modelToResponse(product))
+//                .collect(Collectors.toList());
+//    }
 
     private ProductResponse modelToResponse(Product product) {
         ProductResponse response = new ProductResponse();
         response.setName(product.getName());
         response.setDescription(product.getDescription());
         response.setPrice(product.getPrice());
-        response.setCategoryEnum(product.getCategoryEnum());
+        response.setCategory(categoryService.modelToResponse(product.getCategory()));
         response.setVersion(product.getVersion());
         return response;
     }
 
     public List<ProductResponse> getProductByNameAndCategory(String name,
-                                                             String category) {
+                                                             String
+                                                                     categoryName) {
+        Category category = null;
 
-        CategoryEnum categoryEnum = null;
-        if (category != null) {
-            categoryEnum = CategoryEnum.valueOf(category);
+        if (categoryName != null) {
+
+            category = categoryService.getCategory(categoryName);
         }
+
         List<Product> productList;
 
-        if (name != null && categoryEnum != null) {
-            productList = productRepository.findByNameAndCategoryEnum(name,
-                    categoryEnum);
+        if (name != null && category != null) {
+            productList = productRepository.findByNameAndCategory(name,
+                    category);
         } else if (name != null) {
             productList = productRepository.findByName(name);
-        } else if (categoryEnum != null) {
-            productList = productRepository.findByCategoryEnum(categoryEnum);
+        } else if (category != null) {
+            productList = productRepository.findByCategory(category);
         } else {
             productList = productRepository.findAll();
         }
@@ -104,21 +111,21 @@ public class ProductService {
     }
 
     public void update(ProductRequest productRequest) {
-
         Optional<Product> productOptional =
                 productRepository.findById(productRequest.getName());
 
         if (productOptional.isPresent()) {
-
             Product product = productOptional.get();
             product.setDescription(productRequest.getDescription());
             product.setPrice(productRequest.getPrice());
-            product.setCategoryEnum(CategoryEnum.valueOf(productRequest.getCategory()));
+
+            Category category =
+                    categoryService.getCategory(productRequest
+                            .getCategory());
+            product.setCategory(category);
 
             productRepository.save(product);
-
         }
-
     }
-}
 
+}

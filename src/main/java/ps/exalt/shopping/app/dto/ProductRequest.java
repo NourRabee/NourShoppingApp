@@ -32,8 +32,6 @@ public class ProductRequest {
     @DecimalMax(value = "100000", inclusive = true, message = "The price must" +
             " not be greater than {value}")
     private BigDecimal price;
-    @ValidEnum(enumClass = CategoryEnum.class, message = "Please provide a valid " +
-            "category")
     private String category;
 
 }

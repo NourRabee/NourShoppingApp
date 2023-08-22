@@ -36,6 +36,19 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+//    @GetMapping
+//    public List<CategoryResponse> getCategory(){
+//
+//        return categoryService.getAll();
+//
+//    }
+
+    @PostMapping
+    public CategoryResponse createNewCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
+
+        return categoryService.createCategory(categoryRequest);
+    }
+
     @GetMapping
     public List<CategoryResponse> getCategory(@RequestParam(name = "id",
             required = false) String id) {
@@ -49,12 +62,6 @@ public class CategoryController {
 
         }
 
-    }
-
-    @PostMapping
-    public CategoryResponse createNewCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
-
-        return categoryService.createCategory(categoryRequest);
     }
 
     @DeleteMapping

@@ -11,6 +11,7 @@ import ps.exalt.shopping.app.dto.CategoryRequest;
 import ps.exalt.shopping.app.dto.CategoryResponse;
 import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.repository.CategoryRepository;
+import ps.exalt.shopping.app.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +22,13 @@ public class CategoryService {
 
 
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository,
+                           ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
@@ -82,7 +86,6 @@ public class CategoryService {
 
         }
     }
-
     public boolean idExists(String id) {
 
         return categoryRepository.existsById(id);
@@ -94,5 +97,10 @@ public class CategoryService {
         return categories.stream()
                 .map(category -> modelToResponse(category))
                 .collect(Collectors.toList());
+    }
+
+    public Category getCategory(String categoryId) {
+
+        return categoryRepository.findById(categoryId).get();
     }
 }

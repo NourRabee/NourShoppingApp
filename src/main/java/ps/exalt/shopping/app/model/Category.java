@@ -5,14 +5,14 @@
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +28,5 @@ public class Category {
     private Long creationTime;
     private Long lastUpdateTime;
     private String version;
+
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.model.CategoryEnum;
 
 
@@ -27,7 +28,7 @@ public class ProductResponse {
     private String name;
     private String description;
     private BigDecimal price;
-    private CategoryEnum categoryEnum;
+    private CategoryResponse category;
     private String version;
 
 

@@ -27,17 +27,22 @@ public class ProductController {
         this.productService = productService;
     }
 
+    //    @GetMapping
+//    public List<ProductResponse> getAllProducts(){
+//
+//        return productService.getProducts();
+//    }
+    @PostMapping
+    public ProductResponse createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
+
+        return productService.createProduct(productRequest);
+    }
+
     @GetMapping
     public List<ProductResponse> getProduct(@RequestParam(name = "name",
             required = false) String name, @RequestParam(name = "category",
             required = false) String category) {
         return productService.getProductByNameAndCategory(name, category);
-    }
-
-    @PostMapping
-    public ProductResponse createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
-
-        return productService.createProduct(productRequest);
     }
 
     @DeleteMapping
