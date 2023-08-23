@@ -46,7 +46,7 @@ public class CategoryController {
     @PostMapping
     public CategoryResponse createNewCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
 
-        return categoryService.createCategory(categoryRequest);
+        return categoryService.create(categoryRequest);
     }
 
     @GetMapping
@@ -65,10 +65,10 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public void deleteCategory(@RequestParam(name = "id", required = true) String id) {
+    public void delete(@RequestParam(name = "id", required = true) String id) {
         boolean nameExists = categoryService.idExists(id);
         if (nameExists) {
-            categoryService.deleteProductById(id);
+            categoryService.delete(id);
         }
     }
 

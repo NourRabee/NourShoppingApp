@@ -7,6 +7,7 @@
 package ps.exalt.shopping.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ps.exalt.shopping.app.common.service.BaseService;
 import ps.exalt.shopping.app.dto.ProductRequest;
@@ -20,10 +21,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService  extends BaseService{
+public class ProductService  extends BaseService<ProductRequest, Product, ProductResponse, String>{
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+
+
 
     @Autowired
     public ProductService(ProductRepository productRepository,
@@ -33,12 +36,7 @@ public class ProductService  extends BaseService{
         this.categoryService = categoryService;
     }
 
-    public ProductResponse createProduct(ProductRequest productRequest) {
-        Product product = requestToModel(productRequest);
-        return modelToResponse(productRepository.save(product));
-    }
-
-    private Product requestToModel(ProductRequest productRequest) {
+    public Product requestToModel(ProductRequest productRequest) {
         Category category =
                 categoryService.getCategory(productRequest.getCategory());
 //        return Product.builder()
@@ -69,7 +67,7 @@ public class ProductService  extends BaseService{
 //                .collect(Collectors.toList());
 //    }
 
-    private ProductResponse modelToResponse(Product product) {
+    public ProductResponse modelToResponse(Product product) {
         ProductResponse response = new ProductResponse();
         response.setId(product.getId());
         response.setDescription(product.getDescription());
@@ -77,6 +75,11 @@ public class ProductService  extends BaseService{
         response.setCategory(categoryService.modelToResponse(product.getCategory()));
         response.setVersion(product.getVersion());
         return response;
+    }
+
+    @Override
+    public JpaRepository<Product, String> getRepository() {
+        return productRepository;
     }
 
     public List<ProductResponse> getProductByIdAndCategory(String id,
@@ -113,9 +116,6 @@ public class ProductService  extends BaseService{
 
     }
 
-    public void deleteProductById(String id) {
-        productRepository.deleteById(id);
-    }
 
     public void update(ProductRequest productRequest) {
         Optional<Product> productOptional =

@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ps.exalt.shopping.app.common.dto.BaseResponse;
 
 @AllArgsConstructor
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
-public class CategoryResponse {
+public class CategoryResponse extends BaseResponse {
 
     private String id;
     private String description;

@@ -35,7 +35,7 @@ public class ProductController {
     @PostMapping
     public ProductResponse createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
 
-        return productService.createProduct(productRequest);
+        return productService.create(productRequest);
     }
 
     @GetMapping
@@ -49,7 +49,7 @@ public class ProductController {
     public void deleteProduct(@RequestParam(name = "id", required = true) String id) {
         boolean idExists = productService.idExists(id);
         if (idExists) {
-            productService.deleteProductById(id);
+            productService.delete(id);
         }
     }
 

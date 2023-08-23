@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ps.exalt.shopping.app.common.dto.BaseResponse;
 
 import java.math.BigDecimal;
 
@@ -19,7 +20,7 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 
-public class ProductResponse {
+public class ProductResponse extends BaseResponse {
 
 
     private String id;

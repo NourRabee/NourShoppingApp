@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ps.exalt.shopping.app.common.dto.BaseRequest;
 import ps.exalt.shopping.app.customAnnotation.ValidEnum;
 import ps.exalt.shopping.app.model.CategoryEnum;
 
@@ -22,7 +23,7 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 
-public class ProductRequest {
+public class ProductRequest extends BaseRequest {
 
     @NotEmpty(message = "id must not be empty")
     private String id;

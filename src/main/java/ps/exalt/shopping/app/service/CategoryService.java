@@ -6,6 +6,7 @@
 package ps.exalt.shopping.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ps.exalt.shopping.app.common.service.BaseService;
 import ps.exalt.shopping.app.dto.CategoryRequest;
@@ -18,7 +19,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService  extends BaseService{
+public class CategoryService extends BaseService<CategoryRequest, Category,
+        CategoryResponse, String> {
 
 
     private final CategoryRepository categoryRepository;
@@ -30,22 +32,16 @@ public class CategoryService  extends BaseService{
 
     }
 
-    public CategoryResponse createCategory(CategoryRequest categoryRequest) {
-
-        Category category = requestToModel(categoryRequest);
-        return modelToResponse(categoryRepository.save(category));
-    }
-
     public Category requestToModel(CategoryRequest request) {
 
         Category category = new Category();
-        category.setId( request.getId());
+        category.setId(request.getId());
         category.setDescription(request.getDescription());
         category.setVersion("V1.0");
         category.setCreationTime(System.currentTimeMillis());
         category.setLastUpdateTime(System.currentTimeMillis());
 
-    return category;
+        return category;
     }
 
     public CategoryResponse modelToResponse(Category category) {
@@ -54,6 +50,11 @@ public class CategoryService  extends BaseService{
                 category.getDescription(), category.getCreationTime(),
                 category.getLastUpdateTime());
         return response;
+    }
+
+    @Override
+    public JpaRepository<Category, String> getRepository() {
+        return categoryRepository;
     }
 
     public List<CategoryResponse> getCategoryById(String id) {
@@ -65,12 +66,6 @@ public class CategoryService  extends BaseService{
         return categoryList.stream()
                 .map(category -> modelToResponse(category))
                 .collect(Collectors.toList());
-    }
-
-
-    public void deleteProductById(String id) {
-
-        categoryRepository.deleteById(id);
     }
 
     public void update(CategoryRequest categoryRequest) {

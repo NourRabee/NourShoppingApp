@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ps.exalt.shopping.app.common.dto.BaseRequest;
 
 @AllArgsConstructor
 @Setter
@@ -17,7 +18,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 
-public class CategoryRequest {
+public class CategoryRequest extends BaseRequest {
 
     private String id;
     private String description;
