@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder;
+import ps.exalt.shopping.app.common.model.BaseModel;
 
 import java.math.BigDecimal;
 
@@ -28,17 +29,14 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @Table
-public class Product {
+public class Product extends BaseModel {
 
     private String id;
     @Id
     private String name;
-    private String description;
     private BigDecimal price;
-    private Long creationTime;
-    private Long lastUpdateTime;
+    private String description;
     @ManyToOne
     private Category category;
-    private String version;
 
 }

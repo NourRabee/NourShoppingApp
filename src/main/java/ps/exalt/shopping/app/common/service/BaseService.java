@@ -1,0 +1,11 @@
+//////////////////////////////////////////////////
+////          author: Nour
+////          filename: BaseService.java
+////          2023
+//////////////////////////////////////////////////
+package ps.exalt.shopping.app.common.service;
+public class BaseService {
+
+
+
+}

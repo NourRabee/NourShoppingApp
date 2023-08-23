@@ -7,6 +7,7 @@ package ps.exalt.shopping.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ps.exalt.shopping.app.common.service.BaseService;
 import ps.exalt.shopping.app.dto.CategoryRequest;
 import ps.exalt.shopping.app.dto.CategoryResponse;
 import ps.exalt.shopping.app.model.Category;
@@ -17,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService {
+public class CategoryService  extends BaseService{
 
 
     private final CategoryRepository categoryRepository;
@@ -37,11 +38,14 @@ public class CategoryService {
 
     public Category requestToModel(CategoryRequest request) {
 
-        Category category = new Category(request.getId(),
-                request.getDescription(), System.currentTimeMillis(),
-                System.currentTimeMillis(), "V1.0");
+        Category category = new Category();
+        category.setId( request.getId());
+        category.setDescription(request.getDescription());
+        category.setVersion("V1.0");
+        category.setCreationTime(System.currentTimeMillis());
+        category.setLastUpdateTime(System.currentTimeMillis());
 
-        return category;
+    return category;
     }
 
     public CategoryResponse modelToResponse(Category category) {

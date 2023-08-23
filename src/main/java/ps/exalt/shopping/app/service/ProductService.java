@@ -8,6 +8,7 @@ package ps.exalt.shopping.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ps.exalt.shopping.app.common.service.BaseService;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
 import ps.exalt.shopping.app.model.Category;
@@ -20,7 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService {
+public class ProductService  extends BaseService{
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
@@ -39,7 +40,18 @@ public class ProductService {
     }
 
     private Product requestToModel(ProductRequest productRequest) {
-
+        Category category =
+                categoryService.getCategory(productRequest.getCategory());
+//        return Product.builder()
+//                .id(String.valueOf(UUID.randomUUID()))
+//                .name(productRequest.getName())
+//                .price(productRequest.getPrice())
+//                .description(productRequest.getDescription())
+//                .lastUpdateTime(System.currentTimeMillis())
+//                .creationTime(System.currentTimeMillis())
+//                .category(category)
+//                .version("V1.0")
+//                .build();
         Product request = new Product();
         request.setName(productRequest.getName());
         request.setId(String.valueOf(UUID.randomUUID()));
@@ -47,8 +59,6 @@ public class ProductService {
         request.setPrice(productRequest.getPrice());
         request.setCreationTime(System.currentTimeMillis());
         request.setLastUpdateTime(System.currentTimeMillis());
-        Category category =
-                categoryService.getCategory(productRequest.getCategory());
         request.setCategory(category);
         request.setVersion("V1.0");
         return request;

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ps.exalt.shopping.app.common.model.BaseModel;
 
 
 @AllArgsConstructor
@@ -22,12 +23,9 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table
-public class Category {
+public class Category extends BaseModel {
     @Id
     private String id;
     private String description;
-    private Long creationTime;
-    private Long lastUpdateTime;
-    private String version;
 
 }
