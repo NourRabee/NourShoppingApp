@@ -1,4 +1,16 @@
 package ps.exalt.shopping.app.common.dto;
 
-public abstract class BaseResponse {
+import jakarta.persistence.MappedSuperclass;
+import lombok.*;
+
+@MappedSuperclass
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public abstract class BaseResponse{
+
+    private String id;
+    private String description;
 }

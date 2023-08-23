@@ -42,7 +42,11 @@ public class ProductController {
     public List<ProductResponse> getProduct(@RequestParam(name = "id",
             required = false) String id, @RequestParam(name = "category",
             required = false) String category) {
-        return productService.getProductByIdAndCategory(id, category);
+        if (id == null && category == null) {
+            return productService.read();
+        } else {
+            return productService.readByIdAndCategory(id, category);
+        }
     }
 
     @DeleteMapping

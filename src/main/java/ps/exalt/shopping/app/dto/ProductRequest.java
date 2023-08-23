@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 
-public class ProductRequest extends BaseRequest {
+public class ProductRequest extends BaseRequest<String> {
 
     @NotEmpty(message = "id must not be empty")
     private String id;

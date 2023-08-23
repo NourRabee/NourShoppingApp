@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -18,9 +19,8 @@ import ps.exalt.shopping.app.common.dto.BaseRequest;
 @ToString
 @NoArgsConstructor
 
-public class CategoryRequest extends BaseRequest {
-
+public class CategoryRequest extends BaseRequest<String> {
+    @NotEmpty(message = "id must not be empty")
     private String id;
     private String description;
-
 }

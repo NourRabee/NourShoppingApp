@@ -19,8 +19,6 @@ import ps.exalt.shopping.app.common.dto.BaseResponse;
 @NoArgsConstructor
 public class CategoryResponse extends BaseResponse {
 
-    private String id;
-    private String description;
     private Long creationTime;
     private Long lastUpdateTime;
 }

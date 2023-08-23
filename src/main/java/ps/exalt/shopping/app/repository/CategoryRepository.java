@@ -11,6 +11,6 @@ import ps.exalt.shopping.app.model.Category;
 
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, String> {
+public interface CategoryRepository extends JpaRepository<Category,String> {
 
 }
