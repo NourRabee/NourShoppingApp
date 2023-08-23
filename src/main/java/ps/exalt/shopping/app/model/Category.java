@@ -23,7 +23,7 @@ import ps.exalt.shopping.app.common.model.BaseModel;
 @ToString
 @Entity
 @Table
-public class Category extends BaseModel {
+public class Category extends BaseModel<String> {
     @Id
     private String id;
     private String description;

@@ -17,9 +17,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BaseModel {
+public abstract class BaseModel<T> {
     private Long creationTime;
     private Long lastUpdateTime;
     private String version;
+
+    // 2 abstract methods -> getId and setId
+    public abstract T getId();
+
+    public abstract void setId(T t);
 
 }

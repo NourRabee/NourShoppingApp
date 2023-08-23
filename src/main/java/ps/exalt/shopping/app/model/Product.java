@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @Table
-public class Product extends BaseModel {
+public class Product extends BaseModel<String> {
     @Id
     private String id;
     private BigDecimal price;
