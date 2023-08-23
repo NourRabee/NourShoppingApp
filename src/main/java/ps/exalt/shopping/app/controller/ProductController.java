@@ -39,17 +39,17 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponse> getProduct(@RequestParam(name = "name",
-            required = false) String name, @RequestParam(name = "category",
+    public List<ProductResponse> getProduct(@RequestParam(name = "id",
+            required = false) String id, @RequestParam(name = "category",
             required = false) String category) {
-        return productService.getProductByNameAndCategory(name, category);
+        return productService.getProductByIdAndCategory(id, category);
     }
 
     @DeleteMapping
-    public void deleteProduct(@RequestParam(name = "name", required = true) String name) {
-        boolean nameExists = productService.nameExists(name);
-        if (nameExists) {
-            productService.deleteProductByName(name);
+    public void deleteProduct(@RequestParam(name = "id", required = true) String id) {
+        boolean idExists = productService.idExists(id);
+        if (idExists) {
+            productService.deleteProductById(id);
         }
     }
 

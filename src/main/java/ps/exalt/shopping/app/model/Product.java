@@ -30,10 +30,8 @@ import java.math.BigDecimal;
 @Entity
 @Table
 public class Product extends BaseModel {
-
-    private String id;
     @Id
-    private String name;
+    private String id;
     private BigDecimal price;
     private String description;
     @ManyToOne

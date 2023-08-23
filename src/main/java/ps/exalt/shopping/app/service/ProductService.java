@@ -17,7 +17,6 @@ import ps.exalt.shopping.app.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,8 +42,7 @@ public class ProductService  extends BaseService{
         Category category =
                 categoryService.getCategory(productRequest.getCategory());
 //        return Product.builder()
-//                .id(String.valueOf(UUID.randomUUID()))
-//                .name(productRequest.getName())
+//                .id(productRequest.getId())
 //                .price(productRequest.getPrice())
 //                .description(productRequest.getDescription())
 //                .lastUpdateTime(System.currentTimeMillis())
@@ -53,8 +51,7 @@ public class ProductService  extends BaseService{
 //                .version("V1.0")
 //                .build();
         Product request = new Product();
-        request.setName(productRequest.getName());
-        request.setId(String.valueOf(UUID.randomUUID()));
+        request.setId(productRequest.getId());
         request.setDescription(productRequest.getDescription());
         request.setPrice(productRequest.getPrice());
         request.setCreationTime(System.currentTimeMillis());
@@ -74,7 +71,7 @@ public class ProductService  extends BaseService{
 
     private ProductResponse modelToResponse(Product product) {
         ProductResponse response = new ProductResponse();
-        response.setName(product.getName());
+        response.setId(product.getId());
         response.setDescription(product.getDescription());
         response.setPrice(product.getPrice());
         response.setCategory(categoryService.modelToResponse(product.getCategory()));
@@ -82,7 +79,7 @@ public class ProductService  extends BaseService{
         return response;
     }
 
-    public List<ProductResponse> getProductByNameAndCategory(String name,
+    public List<ProductResponse> getProductByIdAndCategory(String id,
                                                              String
                                                                      categoryName) {
         Category category = null;
@@ -94,11 +91,11 @@ public class ProductService  extends BaseService{
 
         List<Product> productList;
 
-        if (name != null && category != null) {
-            productList = productRepository.findByNameAndCategory(name,
+        if (id != null && category != null) {
+            productList = productRepository.findByIdAndCategory(id,
                     category);
-        } else if (name != null) {
-            productList = productRepository.findByName(name);
+        } else if (id != null) {
+            productList = productRepository.findByid(id);
         } else if (category != null) {
             productList = productRepository.findByCategory(category);
         } else {
@@ -110,19 +107,19 @@ public class ProductService  extends BaseService{
                 .collect(Collectors.toList());
     }
 
-    public boolean nameExists(String name) {
+    public boolean idExists(String id) {
 
-        return productRepository.existsById(name);
+        return productRepository.existsById(id);
 
     }
 
-    public void deleteProductByName(String name) {
-        productRepository.deleteById(name);
+    public void deleteProductById(String id) {
+        productRepository.deleteById(id);
     }
 
     public void update(ProductRequest productRequest) {
         Optional<Product> productOptional =
-                productRepository.findById(productRequest.getName());
+                productRepository.findById(productRequest.getId());
 
         if (productOptional.isPresent()) {
             Product product = productOptional.get();

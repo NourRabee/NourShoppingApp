@@ -24,8 +24,8 @@ import java.math.BigDecimal;
 
 public class ProductRequest {
 
-    @NotEmpty(message = "Name must not be empty")
-    private String name;
+    @NotEmpty(message = "id must not be empty")
+    private String id;
     private String description;
     @DecimalMin(value = "0", inclusive = true, message = "The price must not " +
             "be less than {value}")
