@@ -27,11 +27,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    //    @GetMapping
-//    public List<ProductResponse> getAllProducts(){
-//
-//        return productService.getProducts();
-//    }
     @PostMapping
     public ProductResponse createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
 

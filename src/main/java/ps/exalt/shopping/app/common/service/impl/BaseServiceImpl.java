@@ -11,10 +11,8 @@ import ps.exalt.shopping.app.common.dto.BaseRequest;
 import ps.exalt.shopping.app.common.dto.BaseResponse;
 import ps.exalt.shopping.app.common.model.BaseModel;
 import ps.exalt.shopping.app.common.service.BaseService;
-import ps.exalt.shopping.app.model.Category;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,44 +62,4 @@ public abstract class BaseServiceImpl<RQ extends BaseRequest<K>,
     public boolean idExists(K k) {
         return getRepository().existsById(k);
     }
-
-
-    //Category
-
-    //    public void update(CategoryRequest categoryRequest) {
-//
-//
-//        Optional<Category> categoryOptional =
-//                categoryRepository.findById(categoryRequest.getId());
-//
-//        if (categoryOptional.isPresent()) {
-//
-//            Category category = categoryOptional.get();
-//            category.setDescription(categoryRequest.getDescription());
-//
-//            categoryRepository.save(category);
-//
-//        }
-//    }
-
-    //PRODUCT
-
-
-    //    public void update(ProductRequest productRequest) {
-//        Optional<Product> productOptional =
-//                productRepository.findById(productRequest.getId());
-//
-//        if (productOptional.isPresent()) {
-//            Product product = productOptional.get();
-//            product.setDescription(productRequest.getDescription());
-//            product.setPrice(productRequest.getPrice());
-//
-//            Category category =
-//                    categoryService.getCategory(productRequest
-//                            .getCategory());
-//            product.setCategory(category);
-//
-//            productRepository.save(product);
-//        }
-//    }
 }

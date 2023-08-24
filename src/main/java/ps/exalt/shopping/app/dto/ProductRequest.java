@@ -12,8 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import ps.exalt.shopping.app.common.dto.BaseRequest;
-import ps.exalt.shopping.app.customAnnotation.ValidEnum;
-import ps.exalt.shopping.app.model.CategoryEnum;
 
 import java.math.BigDecimal;
 

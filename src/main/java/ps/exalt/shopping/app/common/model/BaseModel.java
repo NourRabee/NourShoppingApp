@@ -22,7 +22,6 @@ public abstract class BaseModel<T> {
     private Long lastUpdateTime;
     private String version;
 
-    // 2 abstract methods -> getId and setId
     public abstract T getId();
 
     public abstract void setId(T t);

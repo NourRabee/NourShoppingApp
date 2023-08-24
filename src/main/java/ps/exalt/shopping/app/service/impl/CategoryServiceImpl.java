@@ -20,7 +20,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest, Category,
+public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest,
+        Category,
         CategoryResponse, String> implements CategoryService {
 
 
@@ -59,40 +60,10 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest, Catego
     public JpaRepository<Category, String> getRepository() {
         return categoryRepository;
     }
-
-
-    public List<CategoryResponse> getCategoryById(String id) {
-
-        Optional<Category> categoryList;
-
-        categoryList = categoryRepository.findById(id);
-
-        return categoryList.stream()
-                .map(category -> modelToResponse(category))
-                .collect(Collectors.toList());
-    }
-
-    public void update(CategoryRequest categoryRequest) {
-
-
-        Optional<Category> categoryOptional =
-                categoryRepository.findById(categoryRequest.getId());
-
-        if (categoryOptional.isPresent()) {
-
-            Category category = categoryOptional.get();
-            category.setDescription(categoryRequest.getDescription());
-
-            categoryRepository.save(category);
-
-        }
-    }
-
     public boolean idExists(String id) {
 
         return categoryRepository.existsById(id);
     }
-
 
     public Category getCategory(String categoryId) {
 

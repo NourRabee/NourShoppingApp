@@ -60,13 +60,6 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
 
     }
 
-//    public List<ProductResponse> getProducts() {
-//
-//        return productRepository.findAll().stream()
-//                .map(product -> modelToResponse(product))
-//                .collect(Collectors.toList());
-//    }
-
     public ProductResponse modelToResponse(Product product) {
         ProductResponse response = new ProductResponse();
         response.setId(product.getId());
@@ -106,29 +99,5 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
                 .map(this::modelToResponse)
                 .collect(Collectors.toList());
     }
-
-//    public boolean idExists(String id) {
-//
-//        return productRepository.existsById(id);
-//
-//    }
-
-
-//    public void update(ProductRequest productRequest) {
-//        Optional<Product> productOptional =
-//                productRepository.findById(productRequest.getId());
-//
-//        if (productOptional.isPresent()) {
-//            Product product = productOptional.get();
-//            product.setDescription(productRequest.getDescription());
-//            product.setPrice(productRequest.getPrice());
-//
-//            Category category =
-//                    categoryService.getCategory(productRequest
-//                            .getCategory());
-//            product.setCategory(category);
-//            productRepository.save(product);
-//        }
-//    }
 
 }

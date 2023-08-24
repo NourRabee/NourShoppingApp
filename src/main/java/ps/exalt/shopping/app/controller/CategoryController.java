@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ps.exalt.shopping.app.dto.CategoryRequest;
 import ps.exalt.shopping.app.dto.CategoryResponse;
 import ps.exalt.shopping.app.service.CategoryService;
-import ps.exalt.shopping.app.service.impl.CategoryServiceImpl;
 
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -37,25 +37,19 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-//    @GetMapping
-//    public List<CategoryResponse> getCategory(){
-//
-//        return categoryService.getAll();
-//
-//    }
-
     @PostMapping
     public CategoryResponse createNewCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
         return categoryService.create(categoryRequest);
     }
 
     @GetMapping
-    public CategoryResponse getCategory(@RequestParam(name = "id") String id) {
-            return categoryService.read(id);
-    }
-    @GetMapping
-    public List<CategoryResponse> getCategory() {
+    public List<CategoryResponse> getCategory(@RequestParam(name = "id",
+            required = false) String id) {
+        if (id == null) {
             return categoryService.read();
+        } else {
+            return Collections.singletonList(categoryService.read(id));
+        }
     }
 
     @DeleteMapping

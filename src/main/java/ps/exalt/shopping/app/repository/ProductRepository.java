@@ -15,11 +15,12 @@ import java.util.List;
 
 // Data Access Layer
 @Repository
-public interface ProductRepository extends JpaRepository<Product,String> {
+public interface ProductRepository extends JpaRepository<Product, String> {
 
     public abstract List<Product> findByid(String id);
 
-    public abstract List<Product> findByIdAndCategory(String id, Category category);
+    public abstract List<Product> findByIdAndCategory(String id,
+                                                      Category category);
 
     public abstract List<Product> findByCategory(Category category);
 }
