@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: ProductResponse.java
+//          filename: CategoryResponse.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.dto;
@@ -12,20 +12,13 @@ import lombok.Setter;
 import lombok.ToString;
 import ps.exalt.shopping.app.common.dto.BaseResponse;
 
-import java.math.BigDecimal;
-
 @AllArgsConstructor
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
+public class CategoryResponse extends BaseResponse {
 
-public class ProductResponse extends BaseResponse {
-
-
-    private BigDecimal price;
-    private CategoryResponse category;
-    private String version;
-
-
+    private Long creationTime;
+    private Long lastUpdateTime;
 }

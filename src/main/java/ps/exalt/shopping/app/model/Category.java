@@ -1,40 +1,31 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: Product.java
+//          filename: Category.java
 //          2023
 ////////////////////////////////////////////////
-
 package ps.exalt.shopping.app.model;
-
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 import ps.exalt.shopping.app.common.model.BaseModel;
 
-import java.math.BigDecimal;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
 @ToString
-@NoArgsConstructor
-@Builder
 @Entity
 @Table
-public class Product extends BaseModel<String> {
+public class Category extends BaseModel<String> {
     @Id
     private String id;
-    private BigDecimal price;
     private String description;
-    @ManyToOne
-    private Category category;
 
 }

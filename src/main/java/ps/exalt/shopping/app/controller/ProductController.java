@@ -27,24 +27,28 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
-    public List<ProductResponse> getProduct(@RequestParam(name = "name",
-            required = false) String name, @RequestParam(name = "category",
-            required = false) String category) {
-        return productService.getProductByNameAndCategory(name, category);
-    }
-
     @PostMapping
     public ProductResponse createNewProduct(@RequestBody @Valid ProductRequest productRequest) {
 
-        return productService.createProduct(productRequest);
+        return productService.create(productRequest);
+    }
+
+    @GetMapping
+    public List<ProductResponse> getProduct(@RequestParam(name = "id",
+            required = false) String id, @RequestParam(name = "category",
+            required = false) String category) {
+        if (id == null && category == null) {
+            return productService.read();
+        } else {
+            return productService.readByIdAndCategory(id, category);
+        }
     }
 
     @DeleteMapping
-    public void deleteProduct(@RequestParam(name = "name", required = true) String name) {
-        boolean nameExists = productService.nameExists(name);
-        if (nameExists) {
-            productService.deleteProductByName(name);
+    public void deleteProduct(@RequestParam(name = "id", required = true) String id) {
+        boolean idExists = productService.idExists(id);
+        if (idExists) {
+            productService.delete(id);
         }
     }
 
