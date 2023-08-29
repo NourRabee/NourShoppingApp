@@ -8,7 +8,7 @@ package ps.exalt.shopping.app.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ps.exalt.shopping.app.common.service.impl.BaseServiceImpl;
+import ps.exalt.shopping.app.common.service.impl.MySqlBaseServiceImpl;
 import ps.exalt.shopping.app.dto.CategoryRequest;
 import ps.exalt.shopping.app.dto.CategoryResponse;
 import ps.exalt.shopping.app.model.Category;
@@ -17,7 +17,7 @@ import ps.exalt.shopping.app.service.CategoryService;
 
 
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest,
+public class CategoryServiceImpl extends MySqlBaseServiceImpl<CategoryRequest,
         Category,
         CategoryResponse, String> implements CategoryService {
 
@@ -54,7 +54,7 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest,
     }
 
     @Override
-    public JpaRepository<Category, String> getRepository() {
+    public JpaRepository<Category, String> getJpaRepository() {
         return categoryRepository;
     }
     public boolean idExists(String id) {

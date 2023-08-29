@@ -9,7 +9,7 @@ package ps.exalt.shopping.app.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ps.exalt.shopping.app.common.service.impl.BaseServiceImpl;
+import ps.exalt.shopping.app.common.service.impl.MySqlBaseServiceImpl;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
 import ps.exalt.shopping.app.model.Category;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
+public class ProductServiceImpl extends MySqlBaseServiceImpl<ProductRequest,
         Product, ProductResponse, String> implements ProductService {
 
     private final ProductRepository productRepository;
@@ -71,7 +71,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
     }
 
     @Override
-    public JpaRepository<Product, String> getRepository() {
+    public JpaRepository<Product, String> getJpaRepository() {
         return productRepository;
     }
 

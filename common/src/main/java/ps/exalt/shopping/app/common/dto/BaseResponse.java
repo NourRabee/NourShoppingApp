@@ -12,10 +12,8 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
+
 public abstract class BaseResponse {
 
-    private String id;
-    private String description;
 }

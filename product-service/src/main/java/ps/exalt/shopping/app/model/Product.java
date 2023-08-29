@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ps.exalt.shopping.app.common.model.BaseModel;
 
 import java.math.BigDecimal;

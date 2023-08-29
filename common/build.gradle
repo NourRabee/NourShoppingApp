@@ -5,6 +5,7 @@ plugins {
     id 'ps.exalt.com.mysql'
     id 'ps.exalt.org.projectlombok'
     id 'ps.exalt.org.springframework.boot'
+    id 'ps.exalt.org.mongodb'
 }
 bootJar {
     enabled = false
