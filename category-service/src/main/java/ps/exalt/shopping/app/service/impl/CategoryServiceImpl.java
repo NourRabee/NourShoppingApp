@@ -5,9 +5,11 @@
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.service.impl;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import ps.exalt.shopping.app.common.error.exception.OperationFailedException;
 import ps.exalt.shopping.app.common.service.impl.MySqlBaseServiceImpl;
 import ps.exalt.shopping.app.dto.CategoryRequest;
 import ps.exalt.shopping.app.dto.CategoryResponse;
@@ -15,6 +17,7 @@ import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.repository.CategoryRepository;
 import ps.exalt.shopping.app.service.CategoryService;
 
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl extends MySqlBaseServiceImpl<CategoryRequest,
@@ -61,8 +64,12 @@ public class CategoryServiceImpl extends MySqlBaseServiceImpl<CategoryRequest,
 
         return categoryRepository.existsById(id);
     }
+    @SneakyThrows
     public Category getCategory(String categoryId) {
-
-        return categoryRepository.findById(categoryId).get();
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            return category.get();
+        }
+        throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00002", Category.class.getSimpleName(), categoryId);
     }
 }
