@@ -13,4 +13,8 @@ import ps.exalt.shopping.app.model.Inventory;
 @Repository
 public interface InventoryRepository extends MongoRepository<Inventory,String> {
 
+    boolean existsBySkuCode(String skuCode);
+    Inventory readBySkuCode(String skuCode);
+
+
 }

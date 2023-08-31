@@ -7,7 +7,6 @@ package ps.exalt.shopping.app.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import ps.exalt.shopping.app.common.model.BaseModel;
 
 

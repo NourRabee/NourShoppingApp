@@ -16,5 +16,4 @@ public interface InventoryService extends BaseService<InventoryRequest,
 
     public boolean existByIdAndQuantity(String id, Integer quantity);
 
-    //AddToStock
 }

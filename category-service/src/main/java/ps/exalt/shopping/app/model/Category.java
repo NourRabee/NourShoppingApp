@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ps.exalt.shopping.app.common.model.BaseModel;
 
 

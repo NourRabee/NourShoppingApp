@@ -56,7 +56,6 @@ public class CategoryServiceImpl extends MySqlBaseServiceImpl<CategoryRequest,
         return response;
     }
 
-    @Override
     public JpaRepository<Category, String> getJpaRepository() {
         return categoryRepository;
     }
@@ -64,6 +63,18 @@ public class CategoryServiceImpl extends MySqlBaseServiceImpl<CategoryRequest,
 
         return categoryRepository.existsById(id);
     }
+
+//    @SneakyThrows
+//    @Override
+//    public void delete(String s) {
+//        Optional<Category> m = categoryRepository.findById(s);
+//        if(m.isPresent()){
+//
+//            super.delete(s);
+//        }
+//        throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00002", s);
+//
+//    }
     @SneakyThrows
     public Category getCategory(String categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
