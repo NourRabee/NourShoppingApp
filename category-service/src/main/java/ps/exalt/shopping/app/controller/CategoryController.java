@@ -54,10 +54,7 @@ public class CategoryController {
 
     @DeleteMapping
     public void delete(@RequestParam(name = "id", required = true) String id) {
-        boolean nameExists = categoryService.idExists(id);
-        if (nameExists) {
-            categoryService.delete(id);
-        }
+        categoryService.delete(id);
     }
 
     @PutMapping

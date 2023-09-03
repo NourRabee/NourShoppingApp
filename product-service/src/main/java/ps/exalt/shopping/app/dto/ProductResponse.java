@@ -22,7 +22,8 @@ import java.math.BigDecimal;
 
 public class ProductResponse extends BaseResponse {
 
-
+    private String id;
+    private String description;
     private BigDecimal price;
     private CategoryResponse category;
     private String version;

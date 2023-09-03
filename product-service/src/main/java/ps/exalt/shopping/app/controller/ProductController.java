@@ -6,6 +6,7 @@
 package ps.exalt.shopping.app.controller;
 
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import ps.exalt.shopping.app.dto.ProductResponse;
 import ps.exalt.shopping.app.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping(path = "api/V1.0/product")
@@ -33,6 +36,7 @@ public class ProductController {
         return productService.create(productRequest);
     }
 
+    @SneakyThrows
     @GetMapping
     public List<ProductResponse> getProduct(@RequestParam(name = "id",
             required = false) String id, @RequestParam(name = "category",
@@ -40,20 +44,21 @@ public class ProductController {
         if (id == null && category == null) {
             return productService.read();
         } else {
-            return productService.readByIdAndCategory(id, category);
+            List<ProductResponse> productList =
+                    productService.readByIdAndCategory(id, category);
+            return productList;
         }
     }
 
     @DeleteMapping
     public void deleteProduct(@RequestParam(name = "id", required = true) String id) {
-        boolean idExists = productService.idExists(id);
-        if (idExists) {
-            productService.delete(id);
-        }
+        productService.delete(id);
+
     }
 
     @PutMapping
     public void updateProduct(@RequestBody @Valid ProductRequest productRequest) {
         productService.update(productRequest);
     }
+
 }

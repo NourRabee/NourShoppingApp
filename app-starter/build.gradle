@@ -5,9 +5,12 @@ plugins {
     id 'ps.exalt.com.mysql'
     id 'ps.exalt.org.projectlombok'
     id 'ps.exalt.org.springframework.boot'
+    id 'ps.exalt.org.mongodb'
 }
 
 dependencies {
     implementation project(':category-service')
     implementation project(':product-service')
+    implementation project(':inventory-service')
 }
+
