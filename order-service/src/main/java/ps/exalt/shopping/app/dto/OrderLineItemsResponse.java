@@ -1,26 +1,23 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: CategoryResponse.java
+//          filename: OrderLineItemsResponse.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.dto;
 
+
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import ps.exalt.shopping.app.common.dto.BaseResponse;
 
-@AllArgsConstructor
-@Setter
 @Getter
-@ToString
+@Setter
 @NoArgsConstructor
-public class CategoryResponse extends BaseResponse {
-
-    private String id;
-    private String description;
-    private Long creationTime;
-    private Long lastUpdateTime;
+@AllArgsConstructor
+public class OrderLineItemsResponse extends BaseResponse {
+    private String id; //auto generated UUID
+    private String skuCode;
+    private Integer quantity;
 }

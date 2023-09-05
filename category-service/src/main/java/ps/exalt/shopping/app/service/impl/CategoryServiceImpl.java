@@ -5,19 +5,22 @@
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.service.impl;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ps.exalt.shopping.app.common.service.impl.BaseServiceImpl;
+import ps.exalt.shopping.app.common.error.exception.OperationFailedException;
+import ps.exalt.shopping.app.common.service.impl.MySqlBaseServiceImpl;
 import ps.exalt.shopping.app.dto.CategoryRequest;
 import ps.exalt.shopping.app.dto.CategoryResponse;
 import ps.exalt.shopping.app.model.Category;
 import ps.exalt.shopping.app.repository.CategoryRepository;
 import ps.exalt.shopping.app.service.CategoryService;
 
+import java.util.Optional;
 
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest,
+public class CategoryServiceImpl extends MySqlBaseServiceImpl<CategoryRequest,
         Category,
         CategoryResponse, String> implements CategoryService {
 
@@ -53,16 +56,31 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryRequest,
         return response;
     }
 
-    @Override
-    public JpaRepository<Category, String> getRepository() {
+    public JpaRepository<Category, String> getJpaRepository() {
         return categoryRepository;
     }
     public boolean idExists(String id) {
 
         return categoryRepository.existsById(id);
     }
-    public Category getCategory(String categoryId) {
 
-        return categoryRepository.findById(categoryId).get();
+//    @SneakyThrows
+//    @Override
+//    public void delete(String s) {
+//        Optional<Category> m = categoryRepository.findById(s);
+//        if(m.isPresent()){
+//
+//            super.delete(s);
+//        }
+//        throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00002", s);
+//
+//    }
+    @SneakyThrows
+    public Category getCategory(String categoryId) {
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            return category.get();
+        }
+        throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00002", Category.class.getSimpleName(), categoryId);
     }
 }

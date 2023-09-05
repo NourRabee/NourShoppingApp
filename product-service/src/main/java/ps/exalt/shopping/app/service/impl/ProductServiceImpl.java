@@ -6,10 +6,12 @@
 
 package ps.exalt.shopping.app.service.impl;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ps.exalt.shopping.app.common.service.impl.BaseServiceImpl;
+import ps.exalt.shopping.app.common.error.exception.OperationFailedException;
+import ps.exalt.shopping.app.common.service.impl.MySqlBaseServiceImpl;
 import ps.exalt.shopping.app.dto.ProductRequest;
 import ps.exalt.shopping.app.dto.ProductResponse;
 import ps.exalt.shopping.app.model.Category;
@@ -21,20 +23,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
+public class ProductServiceImpl extends MySqlBaseServiceImpl<ProductRequest,
         Product, ProductResponse, String> implements ProductService {
-
-    private final ProductRepository productRepository;
-    private final CategoryServiceImpl categoryService;
-
-
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository,
-                              CategoryServiceImpl categoryService) {
-
-        this.productRepository = productRepository;
-        this.categoryService = categoryService;
-    }
+    private  ProductRepository productRepository;
+    @Autowired
+    private  CategoryServiceImpl categoryService;
 
     public Product requestToModel(ProductRequest productRequest) {
         Category category =
@@ -70,11 +64,11 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
         return response;
     }
 
-    @Override
-    public JpaRepository<Product, String> getRepository() {
+    public JpaRepository<Product, String> getJpaRepository() {
         return productRepository;
     }
 
+    @SneakyThrows
     public List<ProductResponse> readByIdAndCategory(String id,
                                                      String categoryName) {
         Category category = null;
@@ -87,10 +81,19 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductRequest,
         List<Product> productList;
 
         if (id != null && category != null) {
-            productList = productRepository.findByIdAndCategory(id,
-                    category);
+            if(idExists(id)) {
+                productList = productRepository.findByIdAndCategory(id,
+                        category);
+            }else{
+                throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00002", id);
+            }
         } else if (id != null) {
-            productList = productRepository.findByid(id);
+            if(idExists(id)) {
+                productList = productRepository.findByid(id);
+            }
+            else{
+                throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00002", id);
+            }
         } else {
             productList = productRepository.findByCategory(category);
         }
