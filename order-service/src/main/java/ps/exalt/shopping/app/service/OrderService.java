@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: InventoryService.java
+//          filename: OrderService.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.service;
@@ -13,7 +13,4 @@ import ps.exalt.shopping.app.model.Order;
 
 public interface OrderService extends BaseService<OrderRequest,
         Order, OrderResponse, String> {
-
-    public boolean existByIdAndQuantity(String id, Integer quantity);
-
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: InventoryRepository.java
+//          filename: OrderRepository.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.repository;

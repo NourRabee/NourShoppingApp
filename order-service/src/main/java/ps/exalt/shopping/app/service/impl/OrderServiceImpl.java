@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: InventoryServiceImpl.java
+//          filename: OrderServiceImpl.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.service.impl;
@@ -87,20 +87,16 @@ public class OrderServiceImpl extends MongoBaseServiceImpl<OrderRequest,
     public OrderResponse create(OrderRequest orderRequest) {
 
         OrderRequest orderRequest1 = new OrderRequest();
-        List<OrderLineItemsRequest> lineItems= new ArrayList<>();
-        List<String> skuCodes = orderRequest.getOrderLineItemsRequestList()
-                .stream()
-                .map(OrderLineItemsRequest::getSkuCode)
-                .collect(Collectors.toList());
+        List<OrderLineItemsRequest> lineItems = new ArrayList<>();
+        List<String> skuCodes =
+                orderRequest.getOrderLineItemsRequestList().stream().map(OrderLineItemsRequest::getSkuCode).collect(Collectors.toList());
 
         try {
             WebClient client = WebClient.create();
             UriComponentsBuilder uri = UriComponentsBuilder.newInstance();
-            uri.scheme("http").host("localhost").port("8080").path("/api/v1" +
-                    ".0/inventory").queryParam("skuCode", skuCodes).build();
+            uri.scheme("http").host("localhost").port("8080").path("/api/v1" + ".0/inventory").queryParam("skuCode", skuCodes).build();
             JsonNode responseBody =
-                    client.get().uri(uri.toUriString()).retrieve()
-                            .bodyToMono(JsonNode.class).block();
+                    client.get().uri(uri.toUriString()).retrieve().bodyToMono(JsonNode.class).block();
 
 
             int counter = 0;
@@ -108,11 +104,11 @@ public class OrderServiceImpl extends MongoBaseServiceImpl<OrderRequest,
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 Integer quantity =
-                        objectMapper.readTree(item.toString()).
-                                findValue("quantity").asInt();
+                        objectMapper.readTree(item.toString()).findValue(
+                                "quantity").asInt();
                 String skuCode =
-                        objectMapper.readTree(item.toString()).
-                                findValue("skuCode").asText();
+                        objectMapper.readTree(item.toString()).findValue(
+                                "skuCode").asText();
 
                 if (quantity >= orderRequest.getOrderLineItemsRequestList().get(counter).getQuantity()) {
 
@@ -121,16 +117,11 @@ public class OrderServiceImpl extends MongoBaseServiceImpl<OrderRequest,
                         WebClient client2 = WebClient.create();
                         UriComponentsBuilder uri2 =
                                 UriComponentsBuilder.newInstance();
-                        uri2.scheme("http").host("localhost").port("8080").path("/api/v1" +
-                                ".0/inventory").queryParam("skuCode",
-                                skuCode).queryParam("quantity",
-                                orderRequest.getOrderLineItemsRequestList().get(counter).getQuantity()).build();
-                        client2.put().uri(uri2.toUriString()).retrieve()
-                                .bodyToMono(JsonNode.class).block();
+                        uri2.scheme("http").host("localhost").port("8080").path("/api/v1" + ".0/inventory").queryParam("skuCode", skuCode).queryParam("quantity", orderRequest.getOrderLineItemsRequestList().get(counter).getQuantity()).build();
+                        client2.put().uri(uri2.toUriString()).retrieve().bodyToMono(JsonNode.class).block();
 
                         OrderLineItemsRequest orderLineItemsRequest =
-                                new OrderLineItemsRequest(orderRequest.getOrderLineItemsRequestList().get(counter).getSkuCode(),
-                                        orderRequest.getOrderLineItemsRequestList().get(counter).getQuantity());
+                                new OrderLineItemsRequest(orderRequest.getOrderLineItemsRequestList().get(counter).getSkuCode(), orderRequest.getOrderLineItemsRequestList().get(counter).getQuantity());
 
                         lineItems.add(orderLineItemsRequest);
 
@@ -140,8 +131,7 @@ public class OrderServiceImpl extends MongoBaseServiceImpl<OrderRequest,
 
                     } catch (WebClientResponseException ex) {
 
-                        throw OperationFailedException.createOperationFailedException(getResourceBundle(),
-                                "COMMON_00003");
+                        throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00003");
                     }
                 } else {
                     counter++;
@@ -150,25 +140,13 @@ public class OrderServiceImpl extends MongoBaseServiceImpl<OrderRequest,
             }
         } catch (WebClientResponseException ex) {
 
-            throw OperationFailedException.createOperationFailedException(getResourceBundle(),
-                    "COMMON_00003");
+            throw OperationFailedException.createOperationFailedException(getResourceBundle(), "COMMON_00003");
 
         }
         if (orderRequest1.getOrderLineItemsRequestList() != null) {
             return super.create(orderRequest1);
         }
         return null;
-    }
-
-
-    public boolean existByIdAndQuantity(String id, Integer quantity) {
-
-        if (orderRepository.existsById(id) && quantity >= 1) {
-
-            return true;
-
-        }
-        return false;
     }
 
 }

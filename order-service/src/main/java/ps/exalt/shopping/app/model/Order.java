@@ -22,6 +22,6 @@ import java.util.List;
 public class Order extends BaseModel<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String id; //auto generated UUID
+    private String id;
     private List<OrderLineItems> orderLineItemsList;
 }

@@ -17,8 +17,7 @@ import ps.exalt.shopping.app.common.model.BaseModel;
 @Setter
 @Getter
 public class OrderLineItems extends BaseModel<String> {
-    private String id; //auto generated UUID
+    private String id;
     private String skuCode;
     private Integer quantity;
-    //make sure that the quantity of skuCode exists in the inventory service
 }
