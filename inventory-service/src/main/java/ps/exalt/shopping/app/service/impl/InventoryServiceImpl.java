@@ -21,6 +21,10 @@ import ps.exalt.shopping.app.model.Inventory;
 import ps.exalt.shopping.app.repository.InventoryRepository;
 import ps.exalt.shopping.app.service.InventoryService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static ps.exalt.shopping.app.common.error.exception.OperationFailedException.createOperationFailedException;
 
 
@@ -46,6 +50,10 @@ public class InventoryServiceImpl extends MongoBaseServiceImpl<InventoryRequest,
         response.setQuantity(inventory.getQuantity());
         response.setSkuCode(inventory.getSkuCode());
         return response;
+    }
+
+    public List<InventoryResponse> modelToResponse(List<Inventory> mList) {
+        return mList.stream().map(this::modelToResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -103,17 +111,40 @@ public class InventoryServiceImpl extends MongoBaseServiceImpl<InventoryRequest,
     }
 
     @SneakyThrows
-    @Override
-    public void update(InventoryRequest inventoryRequest) {
+    public void update(String skuCode, Integer quantity) {
 
-        if (inventoryRepository.existsBySkuCode(inventoryRequest.getSkuCode())) {
+        if (inventoryRepository.existsBySkuCode(skuCode)){
             Inventory inventory =
-                    inventoryRepository.readBySkuCode(inventoryRequest.getSkuCode());
-            inventory.setQuantity(inventoryRequest.getQuantity());
-            getMongoRepository().save(inventory);
+                    inventoryRepository.readBySkuCode(skuCode);
+            if(inventory.getQuantity()-quantity > 0){
+
+                inventory.setQuantity(inventory.getQuantity()-quantity);
+                getMongoRepository().save(inventory);
+            }
+
         } else {
             throw createOperationFailedException(getResourceBundle(),
-                    "COMMON_00002", "skuCode", inventoryRequest.getSkuCode());
+                    "COMMON_00002", "skuCode", skuCode);
         }
+    }
+
+    @SneakyThrows
+    public List<InventoryResponse> readBySkuCode(List<String> skuCodeList) {
+
+        List<Inventory> inventoryList = new ArrayList<>();
+
+        for (String skuCode : skuCodeList) {
+
+            if (inventoryRepository.existsBySkuCode(skuCode)) {
+                inventoryList.add(inventoryRepository.readBySkuCode(skuCode));
+            } else {
+
+                throw createOperationFailedException(getResourceBundle(),
+                        "COMMON_00002", "skuCode", skuCode);
+            }
+
+        }
+
+        return modelToResponse(inventoryList);
     }
 }

@@ -37,18 +37,26 @@ public class InventoryController {
 //
 //    }
 
-    //    @GetMapping
+//    @GetMapping
 //    public List<InventoryResponse> getAll() {
 //        return inventoryService.read();
 //    }
+//    @GetMapping
+//    public List<InventoryResponse> getCategory(@RequestParam(name = "id",
+//            required = false) String id) {
+//        if (id == null) {
+//            return inventoryService.read();
+//        } else {
+//            return Collections.singletonList(inventoryService.read(id));
+//        }
+//    }
+
     @GetMapping
-    public List<InventoryResponse> getCategory(@RequestParam(name = "id",
-            required = false) String id) {
-        if (id == null) {
-            return inventoryService.read();
-        } else {
-            return Collections.singletonList(inventoryService.read(id));
-        }
+    public List<InventoryResponse> getBySkuCode(@RequestParam(name = "skuCode"
+    ) List<String> skuCodeList) {
+
+        return inventoryService.readBySkuCode(skuCodeList);
+
     }
 
     @PostMapping
@@ -57,11 +65,11 @@ public class InventoryController {
     }
 
     @PutMapping
-    public void updateInventory(@RequestBody InventoryRequest inventoryRequest) {
+    public void updateInventory(@RequestParam(name = "skuCode") String skuCode,
+                                @RequestParam(name = "quantity") Integer quantity) {
+        inventoryService.update(skuCode, quantity);
 
-        inventoryService.update(inventoryRequest);
     }
-
     @DeleteMapping
     public void delete(@RequestParam(name = "id", required = true) String id) {
         inventoryService.delete(id);

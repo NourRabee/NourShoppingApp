@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: Inventory.java
+//          filename: Order.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.model;
@@ -10,6 +10,8 @@ import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ps.exalt.shopping.app.common.model.BaseModel;
 
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +19,9 @@ import ps.exalt.shopping.app.common.model.BaseModel;
 @Getter
 @ToString
 @Document
-public class Inventory extends BaseModel<String>{
+public class Order extends BaseModel<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
-    private String skuCode;
-    private Integer quantity;
-
+    private List<OrderLineItems> orderLineItemsList;
 }

@@ -1,27 +1,23 @@
 ////////////////////////////////////////////////
 //          author: Nour
-//          filename: Inventory.java
+//          filename: OrderLineItems.java
 //          2023
 ////////////////////////////////////////////////
 package ps.exalt.shopping.app.model;
 
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ps.exalt.shopping.app.common.model.BaseModel;
 
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-@ToString
-@Document
-public class Inventory extends BaseModel<String>{
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class OrderLineItems extends BaseModel<String> {
     private String id;
     private String skuCode;
     private Integer quantity;
-
 }
